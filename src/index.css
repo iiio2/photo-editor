@@ -11,3 +11,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.main-image {
+  background-image: url('https://source.unsplash.com/WLUHO9A_xik/1600x900');
+  width: 100%;
+  height: 500px;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+input {
+  width: 100%;
+}
+.sidebarItems button {
+  width: 100%;
+}

@@ -1,9 +1,16 @@
 import { Fragment } from 'react';
 
-const Slider = () => {
+const Slider = ({ min, max, value, handleChange }) => {
   return (
     <Fragment>
-      <input type='range' className='form-range' id='customRange1'></input>
+      <input
+        type='range'
+        min={min}
+        max={max}
+        value={value}
+        onChange={handleChange}
+        className='form-range'
+      />
     </Fragment>
   );
 };

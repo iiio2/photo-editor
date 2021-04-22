@@ -1,14 +1,15 @@
 import { Fragment } from 'react';
 
-const Sidebar = () => {
+const Sidebar = ({ name, handleClick, active }) => {
   return (
     <Fragment>
       <div className='row sidebarItems'>
-        <div className='col-12'>
-          <button>Sidebar 1</button>
-        </div>
-        <div className='col-12'>
-          <button>Sidebar 2</button>
+        <div
+          className={`col-12 ${active ? 'active-class' : ''} `}
+          onClick={handleClick}
+          style={{ cursor: 'pointer' }}
+        >
+          <h6>{name}</h6>
         </div>
       </div>
     </Fragment>

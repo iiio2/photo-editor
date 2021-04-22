@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Slider from './components/Slider';
 import Sidebar from './components/Sidebar';
 
@@ -75,18 +76,55 @@ const DEFAULT_OPTIONS = [
 ];
 
 function App() {
+  const [options, setOptions] = useState(DEFAULT_OPTIONS);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const selectOption = options[selectedIndex];
+
+  const handleSliderChange = ({ target }) => {
+    setOptions((prevOptions) => {
+      return prevOptions.map((option, index) => {
+        if (index !== selectedIndex) return option;
+
+        return { ...option, value: target.value };
+      });
+    });
+  };
+
+  const getImgStyle = () => {
+    const filters = options.map((option) => {
+      return `${option.property}(${option.value}${option.unit})`;
+    });
+    return { filter: filters.join(' ') };
+  };
+
   return (
     <div className='container'>
-      <h3>Photo Editor</h3>
+      <h3 className='text-center my-4'>Photo Editor</h3>
       <div className='row'>
         <div className='col-sm-9'>
-          <div className='main-image'></div>
-          <Slider />
+          <div className='main-image mb-2' style={getImgStyle()}></div>
+          {selectOption && (
+            <Slider
+              min={selectOption.range.min}
+              max={selectOption.range.max}
+              value={selectOption.value}
+              handleChange={handleSliderChange}
+            />
+          )}
         </div>
 
         <div className='col-sm-3'>
           <div className='sidebar'>
-            <Sidebar />
+            {options.map((option, index) => {
+              return (
+                <Sidebar
+                  key={index}
+                  name={option.name}
+                  active={index === selectedIndex}
+                  handleClick={() => setSelectedIndex(index)}
+                />
+              );
+            })}
           </div>
         </div>
       </div>
